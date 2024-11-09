@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: 'Courier New', monospace;
+            color: #e94560;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0,0,0,0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(233,69,96,0.2);
+        }
+        .level {
+            display: none;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #e94560;
+            border-radius: 10px;
+            animation: fadeIn 1s;
+        }
+        .level.active {
+            display: block;
+        }
+        .photo-container {
+            max-width: 400px;
+            margin: 20px auto;
+            border: 2px solid #e94560;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .photo-container img {
+            width: 100%;
+            height: auto;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #1a1a2e;
+            border: 1px solid #e94560;
+            border-radius: 5px;
+            color: #e94560;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            padding: 10px 20px;
+            background: #e94560;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+        button:hover {
+            transform: scale(1.05);
+            background: #ff6b6b;
+        }
+        .hint {
+            font-size: 0.9em;
+            color: #0f0;
+            margin-top: 10px;
+            display: none;
+        }
+        .success-message {
+            color: #0f0;
+            display: none;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2em;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #1a1a2e;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: #e94560;
+            transition: width 0.5s;
+        }
+        .love-letter {
+            display: none;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💝 Our Beautiful Love Story 💝</h1>
+        <div class="progress-bar">
+            <div id="progress" class="progress"></div>
+        </div>
+
+        <!-- Password Protection -->
+        <div id="password-screen" class="level active">
+            <h2>Enter Our Special Date 💕</h2>
+            <p>To begin this journey, enter the date we first connected (DDMM)</p>
+            <input type="password" id="start-password" placeholder="Enter 4 digits (DDMM)">
+            <button onclick="checkStartPassword()">Begin Our Journey</button>
+        </div>
+
+        <!-- Level 1 -->
+        <div id="level1" class="level">
+            <h2>The Beginning of Our Story ❤️</h2>
+            <p>When did I first express my feelings to you? It was a rainy evening...</p>
+            <div class="photo-container">
+                <img src="/api/placeholder/400/300" alt="Our Memory" id="photo1">
+            </div>
+            <p class="hint-text">Hint: I was going to FIITJEE classes that evening</p>
+            <input type="text" id="answer1" placeholder="Enter the time (e.g., 7:30 PM)">
+            <button onclick="checkAnswer(1)">Submit</button>
+            <div id="hint1" class="hint">Think about that rainy evening...</div>
+        </div>
+
+        <!-- Level 2 -->
+        <div id="level2" class="level">
+            <h2>Our First Gift 🎁</h2>
+            <p>What was the first gift I gave you?</p>
+            <div class="photo-container">
+                <img src="/api/placeholder/400/300" alt="Gift Memory" id="photo2">
+            </div>
+            <p class="hint-text">Hint: I secretly put it in your purse in Wardha</p>
+            <input type="text" id="answer2" placeholder="Enter your answer">
+            <button onclick="checkAnswer(2)">Submit</button>
+            <div id="hint2" class="hint">Remember checking your purse that day?</div>
+        </div>
+
+        <!-- Level 3 -->
+        <div id="level3" class="level">
+            <h2>Our First Meeting 👫</h2>
+            <p>When did we first meet after starting our beautiful relationship?</p>
+            <div class="photo-container">
+                <img src="/api/placeholder/400/300" alt="First Meeting" id="photo3">
+            </div>
+            <p class="hint-text">Hint: You came to Wardha just for me during rainy season</p>
+            <input type="text" id="answer3" placeholder="Enter the date (DD/MM/YYYY)">
+            <button onclick="checkAnswer(3)">Submit</button>
+            <div id="hint3" class="hint">It was during the monsoon...</div>
+        </div>
+
+        <!-- Level 4 -->
+        <div id="level4" class="level">
+            <h2>Special Name 💝</h2>
+            <p>What's the nickname I still call you by?</p>
+            <div class="photo-container">
+                <img src="/api/placeholder/400/300" alt="Sweet Moments" id="photo4">
+            </div>
+            <p class="hint-text">Hint: I still use this name every day</p>
+            <input type="text" id="answer4" placeholder="Enter the nickname">
+            <button onclick="checkAnswer(4)">Submit</button>
+            <div id="hint4" class="hint">It's your special name...</div>
+        </div>
+
+        <!-- Level 5 -->
+        <div id="level5" class="level">
+            <h2>Beautiful You 😍</h2>
+            <p>Which part of your face do I find most beautiful in the world?</p>
+            <div class="photo-container">
+                <img src="/api/placeholder/400/300" alt="Beautiful You" id="photo5">
+            </div>
+            <input type="text" id="answer5" placeholder="Enter your answer">
+            <button onclick="checkAnswer(5)">Submit</button>
+            <div id="hint5" class="hint">It's something on your face that I always compliment...</div>
+        </div>
+
+        <!-- Success Message -->
+        <div id="success" class="success-message">
+            <h2>🎉 Happy Birthday, My Love! 🎉</h2>
+            <p>You've completed our journey through memories!</p>
+            <div class="photo-container">
+                <img src="/api/placeholder/400/300" alt="Us Together" id="finalPhoto">
+            </div>
+            <div class="love-letter">
+                <p>My dearest,</p>
+                <p>Seven years of loving you have been the most beautiful journey of my life. Every memory we've created together is precious, every moment spent with you is magical.</p>
+                <p>You make my world complete, and I fall in love with you more deeply each day.</p>
+                <p>Happy Birthday, my love! Here's to many more years of us! ❤️</p>
+                <p>Forever Yours</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Replace these with your actual answers (all in lowercase for easier comparison)
+        const answers = {
+            'start': '2911', // Update with your special date
+            1: '7:30 pm', // Update with actual time
+            2: 'teddy bear', // Update with actual first gift
+            3: '15/07/2016', // Update with actual date
+            4: 'sweetheart', // Update with actual nickname
+            5: 'eyes' // Update with actual answer
+        };
+
+        let currentLevel = 0;
+
+        function checkStartPassword() {
+            const password = document.getElementById('start-password').value;
+            if (password === answers['start']) {
+                document.getElementById('password-screen').style.display = 'none';
+                document.getElementById('level1').style.display = 'block';
+                currentLevel = 1;
+                updateProgress();
+            } else {
+                alert('That\'s not our special date... Try again, love! ❤️');
+            }
+        }
+
+        function checkAnswer(level) {
+            const userAnswer = document.getElementById(`answer${level}`).value.toLowerCase().trim();
+            if (userAnswer === answers[level]) {
+                document.getElementById(`level${level}`).style.display = 'none';
+                if (level < 5) {
+                    document.getElementById(`level${level + 1}`).style.display = 'block';
+                    currentLevel++;
+                } else {
+                    document.getElementById('success').style.display = 'block';
+                    document.querySelector('.love-letter').style.display = 'block';
+                }
+                updateProgress();
+            } else {
+                document.getElementById(`hint${level}`).style.display = 'block';
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentLevel / 5) * 100;
+            document.getElementById('progress').style.width = `${progress}%`;
+        }
+    </script>
+</body>
+</html>
